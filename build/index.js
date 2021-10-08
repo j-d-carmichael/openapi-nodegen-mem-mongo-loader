@@ -1,15 +1,15 @@
 "use strict";
 exports.__esModule = true;
 var tslib_1 = require("tslib");
-var mongoose_1 = tslib_1.__importDefault(require("mongoose"));
+var mongoose_1 = (0, tslib_1.__importDefault)(require("mongoose"));
 var mongodb_memory_server_1 = require("mongodb-memory-server");
 var OpenapiNodegenMemMongoLoader = /** @class */ (function () {
     function OpenapiNodegenMemMongoLoader() {
     }
     OpenapiNodegenMemMongoLoader.prototype.setup = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
             var _a, uri;
-            return tslib_1.__generator(this, function (_b) {
+            return (0, tslib_1.__generator)(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         // Load the memory database and oass uri to mongoose
@@ -34,8 +34,8 @@ var OpenapiNodegenMemMongoLoader = /** @class */ (function () {
         });
     };
     OpenapiNodegenMemMongoLoader.prototype.teardown = function () {
-        return tslib_1.__awaiter(this, void 0, void 0, function () {
-            return tslib_1.__generator(this, function (_a) {
+        return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
+            return (0, tslib_1.__generator)(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, mongoose_1["default"].disconnect()];
                     case 1:
