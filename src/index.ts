@@ -1,12 +1,16 @@
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 class OpenapiNodegenMemMongoLoader {
-  public async setup () {
+
+  static mongoServer: any = {};
+
+  async setup () {
     // Load the memory database and oass uri to mongoose
-    global.OPENAPI_NODEGEN_MEM_MONGO_LOADER = new MongoMemoryServer();
-    const mongoUri = await global.OPENAPI_NODEGEN_MEM_MONGO_LOADER.getUri();
-    await mongoose.connect(mongoUri, {
+    OpenapiNodegenMemMongoLoader.mongoServer = await MongoMemoryServer.create();
+    const uri = OpenapiNodegenMemMongoLoader.mongoServer.getUri();
+
+    await mongoose.connect(uri, {
       poolSize: 15,
       useCreateIndex: true,
       useNewUrlParser: true,
@@ -15,9 +19,9 @@ class OpenapiNodegenMemMongoLoader {
     });
   }
 
-  public async teardown () {
+  async teardown () {
     await mongoose.disconnect();
-    await global.OPENAPI_NODEGEN_MEM_MONGO_LOADER.stop();
+    await OpenapiNodegenMemMongoLoader.mongoServer.stop();
   }
 }
 
