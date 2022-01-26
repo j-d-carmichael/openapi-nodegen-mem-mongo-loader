@@ -10,13 +10,20 @@ class OpenapiNodegenMemMongoLoader {
     OpenapiNodegenMemMongoLoader.mongoServer = await MongoMemoryServer.create();
     const uri = OpenapiNodegenMemMongoLoader.mongoServer.getUri();
 
-    await mongoose.connect(uri, {
-      poolSize: 15,
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    });
+    const DEFAULT_OPTIONS = mongoose.version.startsWith('6.')
+      ? {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }
+      : {
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      };
+
+    // @ts-ignore
+    await mongoose.connect(uri, DEFAULT_OPTIONS);
   }
 
   async teardown () {

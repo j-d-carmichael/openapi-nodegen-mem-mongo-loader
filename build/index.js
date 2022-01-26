@@ -8,7 +8,7 @@ var OpenapiNodegenMemMongoLoader = /** @class */ (function () {
     }
     OpenapiNodegenMemMongoLoader.prototype.setup = function () {
         return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
-            var _a, uri;
+            var _a, uri, DEFAULT_OPTIONS;
             return (0, tslib_1.__generator)(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -19,14 +19,21 @@ var OpenapiNodegenMemMongoLoader = /** @class */ (function () {
                         // Load the memory database and oass uri to mongoose
                         _a.mongoServer = _b.sent();
                         uri = OpenapiNodegenMemMongoLoader.mongoServer.getUri();
-                        return [4 /*yield*/, mongoose_1["default"].connect(uri, {
-                                poolSize: 15,
-                                useCreateIndex: true,
+                        DEFAULT_OPTIONS = mongoose_1["default"].version.startsWith('6.')
+                            ? {
                                 useNewUrlParser: true,
-                                useFindAndModify: false,
                                 useUnifiedTopology: true
-                            })];
+                            }
+                            : {
+                                useCreateIndex: true,
+                                useFindAndModify: false,
+                                useNewUrlParser: true,
+                                useUnifiedTopology: true
+                            };
+                        // @ts-ignore
+                        return [4 /*yield*/, mongoose_1["default"].connect(uri, DEFAULT_OPTIONS)];
                     case 2:
+                        // @ts-ignore
                         _b.sent();
                         return [2 /*return*/];
                 }
